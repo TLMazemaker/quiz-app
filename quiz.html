@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Programmer Challenge</title>
+    <link rel="icon" href="images/logo.png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style_700px.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="menu-toggle">☰</div>
+        <ul class="links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="test.html">Test</a></li>
+        </ul>
+    </nav>
+
+    <h1 style="margin-left: 5%;">Name: </h1>
+    <h2 style="margin-left: 5%;">Question: </h2>
+    <div class="w3-light-grey" style="width: 100%;">
+        <div id="myBar" class="w3-container w3-green w3-left" style="width:100%;">15</div>
+    </div>
+    <hr>
+    <div class="question-container">
+        <img id="questionImage" class="question-image" src="" alt="Image">
+        <form id="questionForm">
+            <p id="questionText" class="question-text"></p>
+            <div id="optionsContainer" class="options"></div>
+            <button type="submit" class="submit-btn">Submit</button>
+        </form>
+        <div id="feedback" class="feedback"></div>
+    </div>
+    <script>
+
+        const questions = [
+            ['What is this logo called?', 'Vue.js', 'React.js', 'Node.js', 'AngularJs', 'Node.js', 'images/nodejs.png'],
+            ['How to make function according to this language?', 'def', 'fun', 'function', 'int main()', 'def', 'images/Python.png'],
+            ['Which one is NOT access modifiers?', 'Fileprivate', 'Concealed', 'Protected', 'Internal', 'Concealed', 'images/question3.png'],
+            ['What is this image called?', 'C#', 'K', 'Scala', 'Kotlin', 'Kotlin', 'images/Kotlin.png'],
+            ['Which one is not a data type in Python?', 'complex', 'int', 'double', 'float', 'double', 'images/question5.jpg'],
+            ['Who is this?', 'Ada Lovelace', 'Hedy Lamarr', 'Grace Hopper', 'Radia Perlman', 'Ada Lovelace', 'images/lovelace.png'],
+            ['Which one is NOT a javaScript framework?', 'Nuxt.js', 'Node.js', 'Hapi.js', 'Svelte', 'Node.js', 'images/framework.png'],
+            ['What does this remind you of?', 'C++', 'Coffee?', 'Java', 'PHP', 'Java', 'images/coffee.jpg'],
+            ['What does PHP stands for?', 'PHP: Hypertext Preprocessor', 'Hypertext Processor', 'PHP: Hypertext Processor', 'PHP: Processor Hypertext PHP', 'PHP: Hypertext Preprocessor', 'images/PHP.png'],
+            ['Which is NOT layers of AI?', 'Artificial Intelligence', 'Deep Learning', 'Liquid Learning', 'Machine Learning', 'Liquid Learning', 'images/ai.jpg'],
+        ];
+        let score = 0;
+        let questionNum = 0;
+        let timerId;
+        let timeLeft = 15;
+        const heading2 = document.getElementsByTagName("h2");
+        
+        const questionImage = document.getElementById("questionImage");
+        const questionText = document.getElementById("questionText");
+        const optionsContainer = document.getElementById("optionsContainer");
+        const feedback = document.getElementById("feedback");
+        const bar = document.getElementById("myBar");
+
+        function showQuestion(index) {
+            const [qText, opt1, opt2, opt3, opt4, answer, img] = questions[index];
+            heading2[0].textContent = "Question: "+(index+1);
+            questionImage.src = img;
+            questionText.textContent = qText;
+            optionsContainer.innerHTML = "";
+            feedback.textContent = "";
+            [opt1, opt2, opt3, opt4].forEach((opt, i)=> {
+                const optionId = `option${i+1}`;
+                const label = document.createElement("label");
+                label.classList.add("option-label");
+                label.innerHTML = `
+                <input type="radio" name="answer" value="${opt}" id="${optionId}" required> ${opt}
+                `;
+                optionsContainer.appendChild(label);
+            });
+
+            resetTimer();
+        }
+
+        function resetTimer() {
+            clearInterval(timerId);
+            timeLeft = 15;
+            bar.className = "w3-container w3-green w3-left";
+            bar.style.width="100%";
+            bar.innerHTML = timeLeft;
+
+            timerId = setInterval(() => {
+                timeLeft--;
+                bar.style.width = (timeLeft / 15 * 100) + '%';
+                bar.innerHTML = timeLeft;
+
+                if (timeLeft <= 10 && timeLeft > 5) {
+                    bar.className = "w3-container w3-yellow w3-left";
+                } else if (timeLeft <= 5) {
+                    bar.className = "w3-container w3-red w3-left";
+                }
+
+                if (timeLeft <= 0) {
+                    clearInterval(timerId);
+                    alert("Time's up!");
+                    nextQuestion();
+                }
+            }, 1000);
+        }
+
+        document.getElementById("questionForm").addEventListener("submit", (event)=> {
+            event.preventDefault();
+            clearInterval(timerId);
+
+            const selected = document.querySelector('input[name="answer"]:checked');
+            const correctAnswer = questions[questionNum][5];
+
+            if (selected.value === correctAnswer) {
+                score = score + 10;
+                feedback.textContent = "Correct!";
+                feedback.style.color = "#00ff00";
+            } else {
+                feedback.textContent = "Wrong!";
+                feedback.style.color = "#ff0000";
+            }
+
+            setTimeout(nextQuestion, 1500);
+
+        });
+
+        function nextQuestion() {
+            questionNum++;
+            if (questionNum < questions.length) {
+                showQuestion(questionNum);
+            } else {
+                endQuiz();
+            }
+        }
+
+        function endQuiz() {
+            bar.style.display = "none";
+            questionText.textContent = `Quiz Finished! Final Score: ${score}`;
+            optionsContainer.innerHTML = "";
+            feedback.textContent = "";
+            const resetButton = document.querySelector(".submit-btn");
+            resetButton.textContent = "Restart Quiz";
+            resetButton.style.display = "block";
+            resetButton.onclick = () => {
+                window.location.href = "test.html";
+            };
+        }
+
+        showQuestion(questionNum);
+
+        // function move() {
+        //     let element = document.getElementById("myBar");
+        //     let timeLeft = 15;
+        //     let totalTime = timeLeft;
+        //     let id = setInterval(frame, 1000);
+        //     function frame() {
+        //         if (timeLeft <= 0) {
+        //             clearInterval(id);
+        //         } else {
+        //             if (timeLeft <= 5) {
+        //                 element.className = "w3-container w3-red w3-left";
+        //             } else if (timeLeft <= 10) {
+        //                 element.className = "w3-container w3-yellow w3-left";
+        //         } 
+        //             timeLeft--;
+        //             element.style.width = (timeLeft / totalTime * 100) + '%';
+        //             element.innerHTML = timeLeft;
+        //         } 
+        //     }
+        // }
+        // move();
+    </script>
+
+    <script>
+        const name = new URLSearchParams(window.location.search);
+        const user = name.get("user");
+        const heading = document.getElementsByTagName("h1");
+        if (user) {
+            heading[0].textContent = "Name: "+user;
+        } else {
+            heading[0].textContent = "Name: ";
+        }
+
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.links');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('show');
+        });
+    </script>
+</body>
+</html>

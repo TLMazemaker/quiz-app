@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Programmer Challenge</title>
+    <link rel="icon" href="images/logo.png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style_700px.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="menu-toggle">☰</div>
+        <ul class="links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="test.html">Test</a></li>
+        </ul>
+    </nav>
+    <main>
+        <h1>Welcome to The Programmer Challenge</h1>
+        <p>Test your coding knowledge with fun and tricky quizzes!</p>
+        <p id="typewriter"></p>
+        <a href="test.html" class="start-btn">Start the Test</a>
+
+        <div class="tips">
+            <h2>💡 Today's Tip:</h2>
+            <p id="tip"></p>
+        </div>
+    </main>
+
+    <script>
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.links');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('show');
+        });
+
+        const text = "Dare you take the challenge?";
+        let i = 0;
+        function typeWriter() {
+            if (i < text.length) {
+                document.getElementById("typewriter").innerHTML += text.charAt(i);
+                i++;
+                setTimeout(typeWriter, 50);
+            }
+        }
+        typeWriter();
+
+        const tips = [
+            "Practice makes perfect.",
+            "A semicolon a day keeps the error away.",
+            "Don't just play your games, make them.",
+            "If a variable is like a basket, then a function is technically a rucksack.",
+            "HTML is the bones, while CSS is the clothes, and then there's javaScript...",
+            "When you realise this is just shower thoughts, programming edition."
+        ]
+
+        document.getElementById("tip").innerText = tips[Math.floor(Math.random() * tips.length)];
+    </script>
+</body>
+</html>

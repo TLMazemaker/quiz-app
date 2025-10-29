@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Programmer Challenge</title>
+    <link rel="icon" href="images/logo.png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style_700px.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="menu-toggle">☰</div>
+        <ul class="links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="test.html">Test</a></li>
+        </ul>
+    </nav>
+    <main style="padding: 40px 100px;">
+        
+        <div class="login-container">
+            <form class="login-form">
+                <h2>Please Fill this first.</h2>
+                <p id="status"></p>
+                <input type="text" id="username" placeholder="Please enter your name: " autocomplete="off" required>
+                <button class="start-btn" type="button" onclick="start()">Start</button>
+            </form>
+        </div>
+        
+        <div class="rules">
+            <b>Rules:</b>
+            <ol class="rules-list">
+                <li>Play fair! Don't use ChatGPT or look up references on the internet.</li>
+                <li>You only have 15 seconds to answer each question.</li>
+                <li>There are a total of 10 Questions.</li>
+                <li>For each correct answer, you'll get 10 points.</li>
+                <li>Your final score will appear at the end of the quiz.</li>
+                <li>Should you wish to try again, just press the Restart button.</li>
+            </ol>
+        </div>
+        
+    </main>
+
+    <script>
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.links');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('show');
+        });
+
+        function start() {
+            let username = document.getElementById("username").value.trim();
+
+            if(username.length > 0) {
+                window.open('quiz.html?user='+encodeURIComponent(username), '_blank');
+            } else {
+                let status = document.getElementById("status");
+                status.innerHTML="Please enter a name!";
+                status.style.color="#FF0000";
+                status.style.fontWeight='bold';
+            }
+        }
+
+        let form = document.getElementsByClassName('login-form')[0];
+        form.addEventListener("keydown", function(event){
+            if(event.key === 'Enter') {
+                event.preventDefault();
+                start();
+            }
+        });
+    </script>
+</body>
+</html>

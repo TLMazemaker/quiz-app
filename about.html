@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="images/logo.png">
+    <title>The Programmer Challenge</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style_700px.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="menu-toggle">☰</div>
+        <ul class="links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="test.html">Test</a></li>
+        </ul>
+    </nav>
+    <div class="about-me">
+        <h2>About</h2>
+        <p>Are you an expert in Programming? Can you answer these programming questions correctly? Take the challenge and found out your strength. The questions will be randomly selected and presented in a mix of multiple programming languages. Good luck.</p>
+    </div>
+    <script>
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.links');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('show');
+        });
+    </script>
+</body>
+</html>

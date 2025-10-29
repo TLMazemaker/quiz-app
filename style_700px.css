@@ -1,0 +1,87 @@
+@media(max-width: 700px) {
+    .menu-toggle {
+        display: block;
+    }
+
+    .links {
+        position: absolute;
+        top: 35px;
+        left: 8px;
+        background: #7d6c6c;
+        flex-direction: column;
+        align-items: flex-start;
+        display: none;
+        padding: 15px;
+        width: 180px;
+    }
+
+    .links.show {
+        display: flex;
+    }
+
+    .links li {
+        width: 100%;
+    }
+
+    .links li a {
+        display: block;
+        width: 100%;
+        padding: 10px 5px;
+    }
+
+    .links li a:hover {
+        background-color: #2a2a2a;
+    }
+
+    .about-me {
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        background: rgba(255, 220, 172, 0.85);
+        padding: 10px 15px;
+        max-width: 300px;          
+        border-radius: 8px;        
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); 
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.4;
+        text-align: justify;
+    }
+
+    .login-container {
+        display: flex;
+        flex: 1;
+        justify-content: center;
+        align-items: center;
+        margin: 5%;
+    }
+
+    .login-form {
+        background: #f9f9f9;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
+        width: 300px;
+    }
+
+    .login-form input {
+        width: 85%;
+        padding: 10px;
+        margin: 10px;
+        border: 1px solid #000000;
+        border-radius: 5px;
+    }
+
+    .login-form input:hover {
+        cursor: pointer;
+        border: 1px solid #ab7605;
+    }
+
+    .question-image {
+        width: 200px;
+        display: block;
+        margin-bottom: 15px;
+        border-radius: 10px;
+    }
+}
